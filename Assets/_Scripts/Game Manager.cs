@@ -1,10 +1,7 @@
 using UnityEngine;
 
-public class scientist : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public int hp = 3;
-    public bool attacked = false; 
-    public int damage = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
