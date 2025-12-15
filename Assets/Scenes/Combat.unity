@@ -1147,11 +1147,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d525c74551106c4891887f02422fc08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  Knight: {fileID: 0}
-  Wizard: {fileID: 0}
-  Archer: {fileID: 0}
+  Knight: {fileID: 2111698715}
+  Wizard: {fileID: 56800685}
+  Archer: {fileID: 1564666880}
   Selection: {fileID: 599721521}
   positions: 0
+  isActive: 0
   Highlight: {fileID: 599721519}
 --- !u!4 &1346323518
 Transform:
