@@ -23,9 +23,29 @@ public class GameManager : MonoBehaviour
     public Transform EnemySelection; 
 
 
+    //Calling Scripts
+        //player characters
+    knight knight;
+    archer archer;
+    wizard wizard;
+        //NPC enemies
+    engineer engineer;
+    scientist scientist;
+    warrior warrior;
+
+
     //Game objects
+        //highlights
     public GameObject Highlight;
-    public GameObject EnemyHighlight; 
+    public GameObject EnemyHighlight;
+        //player characters
+    public GameObject AllyKnight;
+    public GameObject AllyArcher;
+    public GameObject AllyWizard;
+        //NPC enemies
+    public GameObject EnemyEngineer;
+    public GameObject EnemyScientist;
+    public GameObject EnemyWarrior;
 
 
     //Data types
@@ -40,6 +60,12 @@ public class GameManager : MonoBehaviour
     {
         positions = 1;
         enemypositions = 1;
+        knight = AllyKnight.GetComponent<knight>();
+        archer = AllyArcher.GetComponent<archer>();
+        wizard = AllyWizard.GetComponent<wizard>();
+        engineer = EnemyEngineer.GetComponent<engineer>();
+        scientist = EnemyScientist.GetComponent<scientist>();
+        warrior = EnemyWarrior.GetComponent<warrior>();
     }
 
     // Update is called once per frame
@@ -144,6 +170,11 @@ public class GameManager : MonoBehaviour
         {
             enemypositions = 3; 
         }
+        #endregion
+        
+
+        #region Battle System
+        
         #endregion
     }
 }

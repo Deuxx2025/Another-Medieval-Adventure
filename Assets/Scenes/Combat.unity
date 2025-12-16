@@ -1261,6 +1261,12 @@ MonoBehaviour:
   EnemySelection: {fileID: 1038176213}
   Highlight: {fileID: 599721519}
   EnemyHighlight: {fileID: 1038176211}
+  AllyKnight: {fileID: 2111698711}
+  AllyArcher: {fileID: 1564666876}
+  AllyWizard: {fileID: 56800681}
+  EnemyEngineer: {fileID: 379178715}
+  EnemyScientist: {fileID: 206827296}
+  EnemyWarrior: {fileID: 767457289}
   positions: 0
   enemypositions: 0
   isActive: 0
