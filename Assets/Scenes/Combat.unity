@@ -1241,12 +1241,16 @@ MonoBehaviour:
   Wizard: {fileID: 56800685}
   Archer: {fileID: 1564666880}
   Selection: {fileID: 599721521}
+  Engineer: {fileID: 379178719}
+  Scientist: {fileID: 206827300}
+  Warrior: {fileID: 767457293}
   EnemySelection: {fileID: 1038176213}
   Highlight: {fileID: 599721519}
   EnemyHighlight: {fileID: 1038176211}
   positions: 0
   enemypositions: 0
   isActive: 0
+  isActiveEnemy: 0
   isAttacking: 0
 --- !u!4 &1346323518
 Transform:
