@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 using Mono.Cecil.Cil;
 using NUnit.Framework;
 using Unity.VisualScripting;
@@ -171,10 +172,21 @@ public class GameManager : MonoBehaviour
             enemypositions = 3; 
         }
         #endregion
-        
+
 
         #region Battle System
-        
+        //if (isAttacking == true)
+        //{
+            if (positions == 1)
+            {
+                if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
+                {
+                    engineer.hp -= knight.damage;
+                    knight.attacked = true;
+                }
+            }
+        //}
         #endregion
+        print(engineer.hp);
     }
 }
