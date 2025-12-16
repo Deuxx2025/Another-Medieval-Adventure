@@ -10,13 +10,24 @@ using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
+    //Transforms
     public Transform Knight;            
     public Transform Wizard;
     public Transform Archer;
-    public Transform Selection; 
-    public int positions; 
+    public Transform Selection;
+    public Transform EnemySelection; 
+
+
+    //Game objects
+    public GameObject Highlight;
+    public GameObject EnemyHighlight; 
+
+
+    //Data types
+    public int positions;
+    public int enemypositions; 
     public bool isActive = false; 
-    public GameObject Highlight; 
+    public bool isAttacking = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,6 +38,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Highlight System
         if (isActive == true)
         {
             Highlight.SetActive(true);
@@ -75,6 +87,10 @@ public class GameManager : MonoBehaviour
             positions = 3; 
         }
 
-        
+        if (positions == 1 && Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            isAttacking = true;
+        }
+        #endregion
     }
 }
