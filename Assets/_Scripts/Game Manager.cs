@@ -142,6 +142,25 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (positions == 2 && Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            isAttacking = true;
+            if (isAttacking == true)
+            {
+                isActiveEnemy = true;
+            }
+        }
+
+        if (positions == 3 && Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            isAttacking = true;
+            if (isAttacking == true)
+            {
+                isActiveEnemy = true;
+            }
+        }
+        
+
         if (Keyboard.current.downArrowKey.wasPressedThisFrame && isAttacking == true)
         {
             enemypositions++;
@@ -192,9 +211,62 @@ public class GameManager : MonoBehaviour
                     engineer.hp -= knight.damage;
                     knight.attacked = true;
                 }
+
+                if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 2)
+                {
+                    scientist.hp -= knight.damage;
+                    knight.attacked = true;
+                }
+
+                if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 3)
+                {
+                    warrior.hp -= knight.damage;
+                    knight.attacked = true;
+                }
+            }
+
+            if (positions == 2 && ready == 1)
+            {
+                if (archer.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
+                {
+                    engineer.hp -= archer.damage;
+                    archer.attacked = true;
+                }
+
+                if (archer.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 2)
+                {
+                    scientist.hp -= archer.damage;
+                    archer.attacked = true;
+                }
+
+                if (archer.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 3)
+                {
+                    warrior.hp -= archer.damage;
+                    archer.attacked = true;
+                }
+            }
+
+            if (positions == 3 && ready == 1)
+            {
+                if (wizard.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
+                {
+                    engineer.hp -= wizard.damage;
+                    wizard.attacked = true;
+                }
+
+                if (wizard.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 2)
+                {
+                    scientist.hp -= wizard.damage;
+                    wizard.attacked = true;
+                }
+
+                if (wizard.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 3)
+                {
+                    warrior.hp -= wizard.damage;
+                    wizard.attacked = true;
+                }
             }
         }
         #endregion
-        print(engineer.hp);
     }
 }
