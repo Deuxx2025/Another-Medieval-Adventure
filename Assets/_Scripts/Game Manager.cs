@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     //Data types
     public int positions;
     public int enemypositions; 
+    public int ready;
     public bool isActive = false; 
     public bool isActiveEnemy = false; 
     public bool isAttacking = false;
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        positions = 1;
+        positions = 0;
         enemypositions = 1;
         knight = AllyKnight.GetComponent<knight>();
         archer = AllyArcher.GetComponent<archer>();
@@ -144,11 +145,13 @@ public class GameManager : MonoBehaviour
         if (Keyboard.current.downArrowKey.wasPressedThisFrame && isAttacking == true)
         {
             enemypositions++;
+            ready++;
         } 
 
         if (Keyboard.current.upArrowKey.wasPressedThisFrame && isAttacking == true)
         {
-            enemypositions--;   
+            enemypositions--;  
+            ready++; 
         }
         
         if (enemypositions == 1)
@@ -171,13 +174,18 @@ public class GameManager : MonoBehaviour
         {
             enemypositions = 3; 
         }
+
+        if (ready > 1)
+        {
+            ready = 1;
+        }
         #endregion
 
 
         #region Battle System
-        //if (isAttacking == true)
-        //{
-            if (positions == 1)
+        if (isAttacking == true)
+        {
+            if (positions == 1 && ready == 1)
             {
                 if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
                 {
@@ -185,7 +193,7 @@ public class GameManager : MonoBehaviour
                     knight.attacked = true;
                 }
             }
-        //}
+        }
         #endregion
         print(engineer.hp);
     }
