@@ -50,9 +50,10 @@ public class GameManager : MonoBehaviour
 
 
     //Data types
-    public int positions;
-    public int enemypositions; 
-    public int ready;
+    public int positions;               //holds the positions of the characters
+    public int enemypositions;          //holds the positions of the enemy characters
+    public int enemyReady;              //fixes a bug that the player can interact with the enemy selection without the visual being there
+    public int allyReady;               //fixes a bug that the player can interact with the ally selection without the visual being there
     public bool isActive = false; 
     public bool isActiveEnemy = false; 
     public bool isAttacking = false;
@@ -84,12 +85,13 @@ public class GameManager : MonoBehaviour
             Highlight.SetActive(false);
         }
 
-        if (Keyboard.current.downArrowKey.wasPressedThisFrame && isAttacking == false)
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame && isAttacking == false) //Highlight.activeSelf == false
         {
             isActive = true;
             if (isActive == true)
             {
                 positions++;
+                allyReady++;
             }
         } 
 
@@ -99,6 +101,7 @@ public class GameManager : MonoBehaviour
             if (isActive == true)
             {
                 positions--;
+                allyReady++;
             }
         }
         
@@ -123,6 +126,11 @@ public class GameManager : MonoBehaviour
             positions = 3; 
         }
 
+        if (allyReady > 1)
+        {
+            allyReady = 1;
+        }
+
         //Enemy Higlight System
         if (isActiveEnemy == true)
         {
@@ -133,7 +141,7 @@ public class GameManager : MonoBehaviour
             EnemyHighlight.SetActive(false);
         }
 
-        if (positions == 1 && Keyboard.current.enterKey.wasPressedThisFrame)
+        if (positions == 1 && Keyboard.current.enterKey.wasPressedThisFrame && allyReady == 1)
         {
             isAttacking = true;
             if (isAttacking == true)
@@ -142,7 +150,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (positions == 2 && Keyboard.current.enterKey.wasPressedThisFrame)
+        if (positions == 2 && Keyboard.current.enterKey.wasPressedThisFrame && allyReady == 1)
         {
             isAttacking = true;
             if (isAttacking == true)
@@ -151,7 +159,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (positions == 3 && Keyboard.current.enterKey.wasPressedThisFrame)
+        if (positions == 3 && Keyboard.current.enterKey.wasPressedThisFrame && allyReady == 1)
         {
             isAttacking = true;
             if (isAttacking == true)
@@ -164,13 +172,13 @@ public class GameManager : MonoBehaviour
         if (Keyboard.current.downArrowKey.wasPressedThisFrame && isAttacking == true)
         {
             enemypositions++;
-            ready++;
+            enemyReady++;
         } 
 
         if (Keyboard.current.upArrowKey.wasPressedThisFrame && isAttacking == true)
         {
             enemypositions--;  
-            ready++; 
+            enemyReady++; 
         }
         
         if (enemypositions == 1)
@@ -194,9 +202,9 @@ public class GameManager : MonoBehaviour
             enemypositions = 3; 
         }
 
-        if (ready > 1)
+        if (enemyReady > 1)
         {
-            ready = 1;
+            enemyReady = 1;
         }
         #endregion
 
@@ -204,7 +212,7 @@ public class GameManager : MonoBehaviour
         #region Battle System
         if (isAttacking == true)
         {
-            if (positions == 1 && ready == 1)
+            if (positions == 1 && enemyReady == 1)
             {
                 if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
                 {
@@ -225,7 +233,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (positions == 2 && ready == 1)
+            if (positions == 2 && enemyReady == 1)
             {
                 if (archer.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
                 {
@@ -246,7 +254,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (positions == 3 && ready == 1)
+            if (positions == 3 && enemyReady == 1)
             {
                 if (wizard.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
                 {
