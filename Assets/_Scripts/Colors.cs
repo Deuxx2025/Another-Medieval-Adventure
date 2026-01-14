@@ -3,6 +3,7 @@ using UnityEngine;
 public class Colors : MonoBehaviour
 {
     private SpriteRenderer _spriteRendererAlly;
+    private SpriteRenderer _spriteRendererEnemy;
     GameManager GameManager;
     public GameObject Manager;
     
@@ -10,6 +11,7 @@ public class Colors : MonoBehaviour
     void Start()
     {
         _spriteRendererAlly = GetComponent<SpriteRenderer>();
+        _spriteRendererEnemy = GetComponent<SpriteRenderer>();
         GameManager = Manager.GetComponent<GameManager>();
     }
 

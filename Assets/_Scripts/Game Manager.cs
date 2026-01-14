@@ -50,10 +50,11 @@ public class GameManager : MonoBehaviour
 
 
     //Data types
-    public int positions;               //holds the positions of the characters
+    public int positions;               //holds the positions of the ally characters
     public int enemypositions;          //holds the positions of the enemy characters
     public int enemyReady;              //fixes a bug that the player can interact with the enemy selection without the visual being there
     public int allyReady;               //fixes a bug that the player can interact with the ally selection without the visual being there
+    public int attacks = 3;
     public bool isActive = false; 
     public bool isActiveEnemy = false; 
     public bool isAttacking = false;
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
     {
         positions = 0;
         enemypositions = 1;
-        knight = AllyKnight.GetComponent<knight>();
+        knight = AllyKnight.GetComponent<knight>();                 //Attaching the scripts into the Game Objects
         archer = AllyArcher.GetComponent<archer>();
         wizard = AllyWizard.GetComponent<wizard>();
         engineer = EnemyEngineer.GetComponent<engineer>();
@@ -105,15 +106,15 @@ public class GameManager : MonoBehaviour
             }
         }
         
-        if (positions == 1)
+        if (positions == 1 && knight.attacked == false)
         {
             Selection.position = Knight.position;
         }
-        else if (positions == 2)
+        else if (positions == 2 && archer.attacked == false)
         {
             Selection.position = Archer.position;
         }
-        else if (positions == 3)
+        else if (positions == 3 && wizard.attacked == false)
         {
             Selection.position = Wizard.position; 
         }
@@ -212,69 +213,86 @@ public class GameManager : MonoBehaviour
         #region Battle System
         if (isAttacking == true)
         {
+            //Attacking knight
             if (positions == 1 && enemyReady == 1)
             {
                 if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
                 {
                     engineer.hp -= knight.damage;
                     knight.attacked = true;
+                    attacks --; 
                 }
 
                 if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 2)
                 {
                     scientist.hp -= knight.damage;
                     knight.attacked = true;
+                    attacks--;
                 }
 
                 if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 3)
                 {
                     warrior.hp -= knight.damage;
                     knight.attacked = true;
+                    attacks--;
                 }
             }
 
+            //Attacking archer
             if (positions == 2 && enemyReady == 1)
             {
                 if (archer.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
                 {
                     engineer.hp -= archer.damage;
                     archer.attacked = true;
+                    attacks--;
                 }
 
                 if (archer.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 2)
                 {
                     scientist.hp -= archer.damage;
                     archer.attacked = true;
+                    attacks--;
                 }
 
                 if (archer.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 3)
                 {
                     warrior.hp -= archer.damage;
                     archer.attacked = true;
+                    attacks--;
                 }
             }
 
+            //Attacking wizard 
             if (positions == 3 && enemyReady == 1)
             {
                 if (wizard.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 1)
                 {
                     engineer.hp -= wizard.damage;
                     wizard.attacked = true;
+                    attacks--;
                 }
 
                 if (wizard.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 2)
                 {
                     scientist.hp -= wizard.damage;
                     wizard.attacked = true;
+                    attacks--;
                 }
 
                 if (wizard.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 3)
                 {
                     warrior.hp -= wizard.damage;
                     wizard.attacked = true;
+                    attacks--;
                 }
             }
         }
         #endregion
+    }
+
+    public void Reset()
+    {
+        
     }
 }
