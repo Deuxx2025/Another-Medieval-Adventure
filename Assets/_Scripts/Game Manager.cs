@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     public bool isActive = false; 
     public bool isActiveEnemy = false; 
     public bool isAttacking = false;
+    public int elHuevo;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
