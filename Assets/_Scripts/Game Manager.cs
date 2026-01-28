@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
     public bool isActive = false; 
     public bool isActiveEnemy = false; 
     public bool isAttacking = false;
-    public int elHuevo;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -221,7 +220,8 @@ public class GameManager : MonoBehaviour
                 {
                     engineer.hp -= knight.damage;
                     knight.attacked = true;
-                    attacks --; 
+                    attacks --;
+                    Reset();
                 }
 
                 if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 2)
@@ -229,6 +229,7 @@ public class GameManager : MonoBehaviour
                     scientist.hp -= knight.damage;
                     knight.attacked = true;
                     attacks--;
+                    Reset();
                 }
 
                 if (knight.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 3)
@@ -236,6 +237,7 @@ public class GameManager : MonoBehaviour
                     warrior.hp -= knight.damage;
                     knight.attacked = true;
                     attacks--;
+                    Reset();
                 }
             }
 
@@ -247,6 +249,7 @@ public class GameManager : MonoBehaviour
                     engineer.hp -= archer.damage;
                     archer.attacked = true;
                     attacks--;
+                    Reset();
                 }
 
                 if (archer.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 2)
@@ -254,6 +257,7 @@ public class GameManager : MonoBehaviour
                     scientist.hp -= archer.damage;
                     archer.attacked = true;
                     attacks--;
+                    Reset();
                 }
 
                 if (archer.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 3)
@@ -261,6 +265,7 @@ public class GameManager : MonoBehaviour
                     warrior.hp -= archer.damage;
                     archer.attacked = true;
                     attacks--;
+                    Reset();
                 }
             }
 
@@ -272,6 +277,7 @@ public class GameManager : MonoBehaviour
                     engineer.hp -= wizard.damage;
                     wizard.attacked = true;
                     attacks--;
+                    Reset();
                 }
 
                 if (wizard.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 2)
@@ -279,6 +285,7 @@ public class GameManager : MonoBehaviour
                     scientist.hp -= wizard.damage;
                     wizard.attacked = true;
                     attacks--;
+                    Reset();
                 }
 
                 if (wizard.attacked == false && Keyboard.current.enterKey.wasPressedThisFrame && enemypositions == 3)
@@ -286,6 +293,7 @@ public class GameManager : MonoBehaviour
                     warrior.hp -= wizard.damage;
                     wizard.attacked = true;
                     attacks--;
+                    Reset();
                 }
             }
         }
@@ -294,6 +302,12 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
-        
+        isActive = false;
+        isActiveEnemy = false;
+        isAttacking = false; 
+        positions = 0;
+        enemypositions = 1;
+        enemyReady = 0;
+        allyReady = 0;
     }
 }
