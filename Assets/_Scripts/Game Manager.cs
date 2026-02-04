@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
                 {
                     engineer.hp -= knight.damage;
                     knight.attacked = true;
-                    attacks --;
+                    attacks--;
                     Reset();
                 }
 

@@ -1269,6 +1269,9 @@ MonoBehaviour:
   EnemyWarrior: {fileID: 767457289}
   positions: 0
   enemypositions: 0
+  enemyReady: 0
+  allyReady: 0
+  attacks: 3
   isActive: 0
   isActiveEnemy: 0
   isAttacking: 0
