@@ -1,31 +1,42 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour
 {
     public GameObject interactionIcon;
+
+    private IInteractable currentInteractable;
 
     private void Start()
     {
         interactionIcon.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Something entered the trigger");
+        IInteractable interactable = collision.GetComponent<IInteractable>();
 
-        if (other.CompareTag("Interactable"))
+        if (interactable != null)
         {
-            Debug.Log("Interactable detected!");
+            currentInteractable = interactable;
             interactionIcon.SetActive(true);
         }
     }
-
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (other.CompareTag("Interactable"))
-        {  
+        IInteractable interactable = collision.GetComponent<IInteractable>();
+
+        if (interactable != null)
+        {
+            currentInteractable = null;
             interactionIcon.SetActive(false);
         }
     }
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed && currentInteractable != null)
+        {
+            currentInteractable.Interact();
+        }
+    }
 }
-    

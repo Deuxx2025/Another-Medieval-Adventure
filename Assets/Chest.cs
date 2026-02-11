@@ -7,7 +7,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     public bool containsKey = false;
 
-    private bool isOpen = false;
+    private bool isOpened = false;
     private SpriteRenderer spriteRenderer;
 
     void Start()
@@ -18,14 +18,12 @@ public class Chest : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (isOpen) return;
+        Debug.Log("Chest Interacted!");
+        if (isOpened) return;
 
-        isOpen = true;
-        spriteRenderer.sprite = openedSprite; 
-        if (containsKey )
-        {
-            PlayerInventory.hasKey = true;
-            Debug.Log("You found a key!");
-        }
+        isOpened = true;
+        spriteRenderer.sprite = openedSprite;
+
+        Debug.Log("You got a key!");
     }
 }
