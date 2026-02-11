@@ -32,6 +32,7 @@ public class PlayerInteraction : MonoBehaviour
             interactionIcon.SetActive(false);
         }
     }
+
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.performed && currentInteractable != null)

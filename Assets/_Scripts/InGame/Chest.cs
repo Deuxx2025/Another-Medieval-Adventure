@@ -18,12 +18,14 @@ public class Chest : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log("Chest Interacted!");
         if (isOpened) return;
 
         isOpened = true;
         spriteRenderer.sprite = openedSprite;
 
-        Debug.Log("You got a key!");
+        if (containsKey)
+        {
+            Debug.Log("You got a key!");
+        }
     }
 }
