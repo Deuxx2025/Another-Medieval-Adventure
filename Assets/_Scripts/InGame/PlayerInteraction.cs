@@ -40,4 +40,5 @@ public class PlayerInteraction : MonoBehaviour
             currentInteractable.Interact();
         }
     }
+
 }
