@@ -22,5 +22,9 @@ public class Colors : MonoBehaviour
         {
             _spriteRendererAlly.color = Color.yellow;
         }
+        else
+        {
+            _spriteRendererAlly.color =  Color.black;
+        }
     }
 }
