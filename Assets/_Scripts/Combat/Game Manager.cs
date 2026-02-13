@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using Mono.Cecil.Cil;
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
     public bool isActive = false; 
     public bool isActiveEnemy = false; 
     public bool isAttacking = false;
+    public List<string> SelectableCharacters;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -86,6 +88,94 @@ public class GameManager : MonoBehaviour
             Highlight.SetActive(false);
         }
 
+
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame && isAttacking == false)
+        {
+            isActive = true;
+            if (isActive == true)
+            {
+                allyReady++;
+                /*
+                for (int i = 0; i < SelectableCharacters.Count; i++ )
+                {
+                    
+                    if (SelectableCharacters[i] == "Knight" && knight.attacked == false)
+                    {
+                        Selection.position = Knight.position;
+                    }
+                    else if (SelectableCharacters[i] == "Archer" && archer.attacked == false)
+                    {
+                        Selection.position = Archer.position;
+                    }
+                    else if (SelectableCharacters[i] == "Wizard" && wizard.attacked == false)
+                    {
+                        Selection.position = Wizard.position;
+                    } 
+                    print(i);
+                    
+                }
+                */
+                positions++;
+                if (positions > SelectableCharacters.Count - 1)
+                {
+                    positions = 0;
+                }
+
+                if (SelectableCharacters[positions] == "Knight" && knight.attacked == false)
+                {
+                    Selection.position = Knight.position;
+                }
+                else if (SelectableCharacters[positions] == "Archer" && archer.attacked == false)
+                {
+                    Selection.position = Archer.position;
+                }
+                else if (SelectableCharacters[positions] == "Wizard" && wizard.attacked == false)
+                {
+                    Selection.position = Wizard.position;
+                }
+
+                if (allyReady > 1)
+                {
+                    allyReady = 1;
+                }
+            }
+        }
+
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame && isAttacking == false)
+        {
+            isActive = true;
+            if (isActive == true)
+            {
+                allyReady++;
+                positions--;
+                if (positions < SelectableCharacters.Count - 1)
+                {
+                    positions = 2;
+                }
+ 
+
+                if (SelectableCharacters[positions] == "Knight" && knight.attacked == false)
+                {
+                    Selection.position = Knight.position;
+                }
+                else if (SelectableCharacters[positions] == "Archer" && archer.attacked == false)
+                {
+                    Selection.position = Archer.position;
+                }
+                else if (SelectableCharacters[positions] == "Wizard" && wizard.attacked == false)
+                {
+                    Selection.position = Wizard.position;
+                }
+
+                if (allyReady > 1)
+                {
+                    allyReady = 1;
+                }
+            }
+        }
+
+
+        /*
         if (Keyboard.current.downArrowKey.wasPressedThisFrame && isAttacking == false) //Highlight.activeSelf == false
         {
             isActive = true;
@@ -131,6 +221,7 @@ public class GameManager : MonoBehaviour
         {
             allyReady = 1;
         }
+        */
 
         //Enemy Higlight System
         if (isActiveEnemy == true)
