@@ -289,9 +289,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecad29dc62b530c4bab9ef170da0775f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::wizard
-  hp: 3
-  attacked: 0
-  damage: 2
 --- !u!114 &56800687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,9 +477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716159b5e8266a34d98c61983300672e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::scientist
-  hp: 3
-  attacked: 0
-  damage: 1
 --- !u!114 &206827302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,9 +665,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed71244f69236045be93bd30cbf4823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::engineer
-  hp: 5
-  attacked: 0
-  damage: 1
 --- !u!114 &379178721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,9 +1178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40a09ab1a2e28b4d85fd02bccee7786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::warrior
-  hp: 3
-  attacked: 0
-  damage: 2
 --- !u!114 &767457295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1337,8 +1325,16 @@ MonoBehaviour:
   - {fileID: 379178721}
   - {fileID: 206827302}
   - {fileID: 767457295}
+  AttackingCharacters:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   AllyIndex: 0
   EnemyIndex: 0
+  RandomNumber: 0
   isAttacking: 0
 --- !u!4 &1346323518
 Transform:
@@ -1525,9 +1521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b623e71db2f8cee41bb11506b5ce1317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::archer
-  hp: 3
-  attacked: 0
-  damage: 2
 --- !u!114 &1564666882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1716,9 +1709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7c60f6a57134d40af9006696e26d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::knight
-  hp: 5
-  attacked: 0
-  damage: 1
 --- !u!114 &2111698717
 MonoBehaviour:
   m_ObjectHideFlags: 0

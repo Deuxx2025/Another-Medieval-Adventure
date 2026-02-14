@@ -1,15 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
-using Mono.Cecil.Cil;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.TextCore.Text;
-using UnityEngine.UIElements;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -20,16 +11,18 @@ public class GameManager : MonoBehaviour
         //Arrays
     public Characters[] allies;
     public Characters[] enemies;
+    public Characters[] AttackingCharacters;
 
     //Data types
-    public int AllyIndex;               //holds the positions of the ally characters
-    public int EnemyIndex;          //holds the positions of the enemy characters
-    public bool isAttacking = false;
+    public int AllyIndex;               //holds the index for the ally Array
+    public int EnemyIndex;              //holds the index for the enemy Array
+    public int RandomNumber;
+    public bool isAttacking = false;    //Changes the battle state for the player's turn
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-    
+        
     }
 
     // Update is called once per frame
@@ -38,36 +31,28 @@ public class GameManager : MonoBehaviour
         #region Highlight System
         if (isAttacking)
         {
+            EnemyHighlight.SetActive(true);
             EnemySelection();
-            print("Como que cosas haces");
         }
         else
         {
+            EnemyHighlight.SetActive(false);
             AllySelection();
-            print("Como que me hago pendejo");
         }
 
-        print(enemies[EnemyIndex].CurrentHP);
-        #endregion
+        
     }
 
     public void Reset()
     {
-        /*
-        isActive = false;
-        isActiveEnemy = false;
-        isAttacking = false; 
-        positions = 0;
-        enemypositions = 1;
-        enemyReady = 0;
-        allyReady = 0;
-        */
+        
     }
 
     public void AllySelection()
     {
         if (Keyboard.current.downArrowKey.wasPressedThisFrame)
         {
+            Highlight.SetActive(true);
             int lenght = allies.Length;
             for (int i = 0; i < lenght; i++)
             {
@@ -81,6 +66,7 @@ public class GameManager : MonoBehaviour
 
         if (Keyboard.current.upArrowKey.wasPressedThisFrame)
         {
+            Highlight.SetActive(true);
             int lenght = allies.Length;
             for (int i = 0; i < lenght; i++)
             {
@@ -94,11 +80,34 @@ public class GameManager : MonoBehaviour
 
         if (Keyboard.current.enterKey.wasPressedThisFrame)
         {
-            if (allies[AllyIndex].IsAlive && !allies[AllyIndex].HasAttacked)
+
+            if (Highlight.activeSelf)
             {
-                isAttacking = true;
-                allies[AllyIndex].HasAttacked = true;
+                if (allies[AllyIndex].IsAlive && !allies[AllyIndex].HasAttacked)
+                {
+                    isAttacking = true;
+                    allies[AllyIndex].HasAttacked = true;
+                }
             }
+            else
+            {
+                Highlight.SetActive(true);
+                for (int i = 0; i < 2; i++)
+                {
+                    int amount;
+                    amount = Random.Range(0,2);
+                    if (i == 0)
+                    {
+                        print(amount);
+                    }
+                    else
+                    {
+                        print(amount);
+                        
+                    }
+                }
+            }
+
         }
 
         Highlight.transform.position = allies[AllyIndex].transform.position;
@@ -108,6 +117,7 @@ public class GameManager : MonoBehaviour
     {
         if (Keyboard.current.downArrowKey.wasPressedThisFrame)
         {
+            
             int lenght = enemies.Length;
             for (int i = 0; i < lenght; i++)
             {
@@ -132,18 +142,23 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        #endregion
+
         if (Keyboard.current.enterKey.wasPressedThisFrame)
         {
-            Attack();
+            AttackStorage();
         }
 
         EnemyHighlight.transform.position = enemies[EnemyIndex].transform.position;
     }
 
-    public void Attack()
+    public void AttackStorage()
     {
         Characters Attacker = allies[AllyIndex];
         Characters Target = enemies[EnemyIndex];
+
+        print(Attacker.Data);
+        print(Target.Data);
 
         if (!Attacker.IsAlive || !Target.IsAlive)
         {
@@ -154,15 +169,30 @@ public class GameManager : MonoBehaviour
 
         isAttacking = false;
 
-        int lenght = enemies.Length;
+        int lenght = allies.Length;
             for (int i = 0; i < lenght; i++)
             {
-                EnemyIndex = (EnemyIndex - 1 + lenght) % lenght;
-                if (enemies[EnemyIndex].IsAlive)
+                AllyIndex = (AllyIndex - 1 + lenght) % lenght;
+                if (allies[AllyIndex].IsAlive)
                 {
                     break;
                 }
             }
+
+        foreach (Characters ally in allies)
+        {
+            if (ally.IsAlive && !ally.HasAttacked)
+            {
+                return;
+            }
+        }
+
+        //CoinFlip
+
+        foreach (Characters ally in allies)
+        {
+            ally.HasAttacked = false;
+        }
 
     }
 }
