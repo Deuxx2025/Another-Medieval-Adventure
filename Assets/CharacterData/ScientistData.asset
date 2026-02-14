@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b69caafdc29f740b24d779470cbae5, type: 3}
   m_Name: ScientistData
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  CharacterName: Knight
-  MaxHP: 5
+  CharacterName: Scientist
+  MaxHP: 3
   Attack: 1
   Alive: 1
   Attacked: 0
-  DH: 1
+  DH: 0

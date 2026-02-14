@@ -8,23 +8,11 @@ using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
-    //Transforms
-        //allies
-    public Transform Knight;            
-    public Transform Wizard;
-    public Transform Archer;
-    public Transform Selection;
-        //enemies
-    public Transform Engineer;
-    public Transform Scientist;
-    public Transform Warrior;
-    public Transform EnemySelection; 
-
-
     //Game objects
         //highlights
     public GameObject Highlight;
@@ -34,19 +22,14 @@ public class GameManager : MonoBehaviour
     public Characters[] enemies;
 
     //Data types
-    public int positions;               //holds the positions of the ally characters
-    public int enemypositions;          //holds the positions of the enemy characters
-    public int enemyReady;              //fixes a bug that the player can interact with the enemy selection without the visual being there
-    public int allyReady;               //fixes a bug that the player can interact with the ally selection without the visual being there
-    public int attacks = 3;
-    public bool isActive = false; 
-    public bool isActiveEnemy = false; 
+    public int AllyIndex;               //holds the positions of the ally characters
+    public int EnemyIndex;          //holds the positions of the enemy characters
     public bool isAttacking = false;
-    public List<string> SelectableCharacters;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        /*
         positions = 0;
         enemypositions = 1;
         knight = AllyKnight.GetComponent<knight>();                 //Attaching the scripts into the Game Objects
@@ -55,13 +38,23 @@ public class GameManager : MonoBehaviour
         engineer = EnemyEngineer.GetComponent<engineer>();
         scientist = EnemyScientist.GetComponent<scientist>();
         warrior = EnemyWarrior.GetComponent<warrior>();
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
         #region Highlight System
+        if (isAttacking)
+        {
+            EnemySelection();
+        }
+        else
+        {
+            AllySelection();
+        }
         //Player Highlight System
+        /*
         if (isActive == true)
         {
             Highlight.SetActive(true);
@@ -78,6 +71,7 @@ public class GameManager : MonoBehaviour
             if (isActive == true)
             {
                 allyReady++;
+                */
                 /*
                 for (int i = 0; i < SelectableCharacters.Count; i++ )
                 {
@@ -97,6 +91,7 @@ public class GameManager : MonoBehaviour
                     print(i);
                 }
                 */
+                /*
                 positions++;
                 if (positions > SelectableCharacters.Count - 1)
                 {
@@ -155,6 +150,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        */
 
 
         /*
@@ -376,6 +372,7 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
+        /*
         isActive = false;
         isActiveEnemy = false;
         isAttacking = false; 
@@ -383,5 +380,85 @@ public class GameManager : MonoBehaviour
         enemypositions = 1;
         enemyReady = 0;
         allyReady = 0;
+        */
+    }
+
+    public void AllySelection()
+    {
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+        {
+            int lenght = allies.Length;
+            for (int i = 0; i < lenght; i++)
+            {
+                AllyIndex = (AllyIndex + 1 + lenght) % lenght;
+                if (allies[AllyIndex].IsAlive && !allies[AllyIndex].HasAttacked)
+                {
+                    break;
+                }
+            }
+        }
+
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        {
+            int lenght = allies.Length;
+            for (int i = 0; i < lenght; i++)
+            {
+                AllyIndex = (AllyIndex - 1 + lenght) % lenght;
+                if (allies[AllyIndex].IsAlive && !allies[AllyIndex].HasAttacked)
+                {
+                    break;
+                }
+            }
+        }
+
+        if (Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            isAttacking = true;
+        }
+
+        Highlight.transform.position = allies[AllyIndex].transform.position;
+    }
+
+    public void EnemySelection()
+    {
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+        {
+            int lenght = enemies.Length;
+            for (int i = 0; i < lenght; i++)
+            {
+                EnemyIndex = (EnemyIndex + 1 + lenght) % lenght;
+                if (enemies[EnemyIndex].IsAlive)
+                {
+                    break;
+                }
+            }
+        }
+
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        {
+            int lenght = enemies.Length;
+            for (int i = 0; i < lenght; i++)
+            {
+                EnemyIndex = (EnemyIndex - 1 + lenght) % lenght;
+                if (enemies[EnemyIndex].IsAlive)
+                {
+                    break;
+                }
+            }
+        }
+
+        if (Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            Attack();
+        }
+
+        EnemyHighlight.transform.position = enemies[EnemyIndex].transform.position;
+    }
+
+    public void Attack()
+    {
+        Characters Attacker = allies[AllyIndex];
+        Characters Target = enemies[EnemyIndex];
+
     }
 }
