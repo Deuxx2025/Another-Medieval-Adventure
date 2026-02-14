@@ -25,30 +25,13 @@ public class GameManager : MonoBehaviour
     public Transform EnemySelection; 
 
 
-    //Calling Scripts
-        //player characters
-    knight knight;
-    archer archer;
-    wizard wizard;
-        //NPC enemies
-    engineer engineer;
-    scientist scientist;
-    warrior warrior;
-
-
     //Game objects
         //highlights
     public GameObject Highlight;
     public GameObject EnemyHighlight;
-        //player characters
-    public GameObject AllyKnight;
-    public GameObject AllyArcher;
-    public GameObject AllyWizard;
-        //NPC enemies
-    public GameObject EnemyEngineer;
-    public GameObject EnemyScientist;
-    public GameObject EnemyWarrior;
-
+        //Arrays
+    public Characters[] allies;
+    public Characters[] enemies;
 
     //Data types
     public int positions;               //holds the positions of the ally characters
@@ -221,7 +204,7 @@ public class GameManager : MonoBehaviour
             allyReady = 1;
         }
         */
-
+        /*
         //Enemy Higlight System
         if (isActiveEnemy == true)
         {
@@ -387,6 +370,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        */
         #endregion
     }
 
