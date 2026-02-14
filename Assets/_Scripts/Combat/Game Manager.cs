@@ -112,7 +112,6 @@ public class GameManager : MonoBehaviour
                         Selection.position = Wizard.position;
                     } 
                     print(i);
-                    
                 }
                 */
                 positions++;
@@ -148,7 +147,7 @@ public class GameManager : MonoBehaviour
             {
                 allyReady++;
                 positions--;
-                if (positions < SelectableCharacters.Count - 1)
+                if (positions < SelectableCharacters.Count - SelectableCharacters.Count)
                 {
                     positions = 2;
                 }
