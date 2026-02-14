@@ -26,7 +26,7 @@ public class Characters : MonoBehaviour
 
     public void DamageCalculation (int damage)
     {
-        CurrentHP -= AttackDamge;
+        CurrentHP -= damage;
         if (CurrentHP <= 0)
         {
             IsAlive = false;
