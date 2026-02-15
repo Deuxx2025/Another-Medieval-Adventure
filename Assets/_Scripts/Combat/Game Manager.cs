@@ -92,20 +92,6 @@ public class GameManager : MonoBehaviour
             else
             {
                 Highlight.SetActive(true);
-                for (int i = 0; i < 2; i++)
-                {
-                    int amount;
-                    amount = Random.Range(0,2);
-                    if (i == 0)
-                    {
-                        print(amount);
-                    }
-                    else
-                    {
-                        print(amount);
-                        
-                    }
-                }
             }
 
         }
@@ -156,16 +142,42 @@ public class GameManager : MonoBehaviour
     {
         Characters Attacker = allies[AllyIndex];
         Characters Target = enemies[EnemyIndex];
+        
+        for (int i = 0; i < AttackingCharacters.Length; i++)
+        {
+            if (AttackingCharacters[i] == null)
+            {
+                AttackingCharacters[i] = Attacker;
+                break;
+            }
+        }
 
-        print(Attacker.Data);
-        print(Target.Data);
+        for (int i = 0; i < AttackingCharacters.Length; i++)
+        {
+            if (AttackingCharacters[i] == null)
+            {
+                AttackingCharacters[i] = Target;
+                break;
+            }
+        }
+
+        /*
+        for (int i = 0; i < AttackingCharacters.Length; i++)
+        {
+            if (AttackingCharacters[i] != null)
+            {
+                AttackingCharacters[i] = null;
+                break;
+            }
+        }
+        */
 
         if (!Attacker.IsAlive || !Target.IsAlive)
         {
             return;
         }
 
-        Target.DamageCalculation(Attacker.AttackDamge);
+        //Target.DamageCalculation(Attacker.AttackDamge);
 
         isAttacking = false;
 
@@ -188,6 +200,29 @@ public class GameManager : MonoBehaviour
         }
 
         //CoinFlip
+        for (int i = 0; i < 2; i++)
+        {
+            int amount;
+            amount = Random.Range(0,2);
+            if (i == 0)
+            {
+                if (amount == 1)
+                {
+                    Target.DamageCalculation(Attacker.AttackDamge);
+                }
+            }
+            else
+            {
+                if (amount == 1)
+                {
+                    Attacker.DamageCalculation(Target.AttackDamge);
+                }
+                        
+            }
+        }
+
+        print(Attacker.CurrentHP);
+        print(Target.CurrentHP);
 
         foreach (Characters ally in allies)
         {
