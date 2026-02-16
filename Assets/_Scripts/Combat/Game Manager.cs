@@ -11,13 +11,12 @@ public class GameManager : MonoBehaviour
         //Arrays
     public Characters[] allies;                 //Array that contains all the player's characters
     public Characters[] enemies;                //Array that contains all the NPC enemies
-    public Characters[] AttackingCharacters;
+    public Characters[] AttackingCharacters;    //Array that contains in pairs the attacking allies and defending enemies
 
     //Data types
     public int AllyIndex;               //holds the index for the ally Array
     public int EnemyIndex;              //holds the index for the enemy Array
-    public int RandomNumber;
-    public bool isAttacking = false;    //Changes the battle state for the player's turn
+    public bool isAttacking = false;    //Changes the battle state when the player is selecting and when its attacking
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +27,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        #region Highlight System
+        //Calling the respective methods of the states
+        //and also making the highlight of the enemy be dynamic  
         if (isAttacking)
         {
             EnemyHighlight.SetActive(true);
@@ -43,20 +43,26 @@ public class GameManager : MonoBehaviour
         
     }
 
+    //For future use (16/2/26)
     public void Reset()
     {
         
     }
 
+    //Handles the dynamic highlight for the allies so that the player know which ally it's being selected 
     public void AllySelection()
     {
+        #region Highlight System
+        //When the player use the down arrow key it scrolls the allies array and activates the highlight for the allies
         if (Keyboard.current.downArrowKey.wasPressedThisFrame)
         {
             Highlight.SetActive(true);
             int lenght = allies.Length;
             for (int i = 0; i < lenght; i++)
             {
+                //AllyIndex uses a modular approach so that the player can't go beyond the limits of the array preventing an overflow
                 AllyIndex = (AllyIndex + 1 + lenght) % lenght;
+                //This `if` ensures that when it finds a valid target it stays there until the player hits the down button again 
                 if (allies[AllyIndex].IsAlive && !allies[AllyIndex].HasAttacked)
                 {
                     break;
@@ -64,13 +70,16 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        //When the player use the up arrow key it scrolls the allies array and activates the highlight for the allies
         if (Keyboard.current.upArrowKey.wasPressedThisFrame)
         {
             Highlight.SetActive(true);
             int lenght = allies.Length;
             for (int i = 0; i < lenght; i++)
             {
+                //AllyIndex uses a modular approach so that the player can't go beyond the limits of the array preventing an overflow
                 AllyIndex = (AllyIndex - 1 + lenght) % lenght;
+                //This `if` ensures that when it finds a valid target it stays there until the player hits the up button again
                 if (allies[AllyIndex].IsAlive && !allies[AllyIndex].HasAttacked)
                 {
                     break;
@@ -78,11 +87,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        //When the player hits the enter key the ally highlight activates and handles the change of state for the attacking
         if (Keyboard.current.enterKey.wasPressedThisFrame)
         {
-
+            //Here it ensures that the player can't enter the attack selecting part without activating the highlight first
             if (Highlight.activeSelf)
             {
+                //This is so that the selected ally can now switch the state and update that character status
                 if (allies[AllyIndex].IsAlive && !allies[AllyIndex].HasAttacked)
                 {
                     isAttacking = true;
@@ -93,9 +104,8 @@ public class GameManager : MonoBehaviour
             {
                 Highlight.SetActive(true);
             }
-
         }
-
+        //Dynamically update the highlight positions depending on the selected ally
         Highlight.transform.position = allies[AllyIndex].transform.position;
     }
 
