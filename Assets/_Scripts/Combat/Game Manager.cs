@@ -109,8 +109,10 @@ public class GameManager : MonoBehaviour
         Highlight.transform.position = allies[AllyIndex].transform.position;
     }
 
+    //Handles the dynamic highlight for the enemies so that the player know which enemy it's being selected
     public void EnemySelection()
     {
+        //When the player use the down arrow key it scrolls the enemies array and activates the highlight for the enemies
         if (Keyboard.current.downArrowKey.wasPressedThisFrame)
         {
             
@@ -125,6 +127,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        //When the player use the up arrow key it scrolls the enemies array and activates the highlight for the enemies
         if (Keyboard.current.upArrowKey.wasPressedThisFrame)
         {
             int lenght = enemies.Length;
@@ -137,14 +140,13 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
         #endregion
-
+        //When the player hits the enter key it calls the method that handles the attacks and damage calculation
         if (Keyboard.current.enterKey.wasPressedThisFrame)
         {
             AttackStorage();
         }
-
+        //Dynamically update the highlight positions depending on the selected enemy
         EnemyHighlight.transform.position = enemies[EnemyIndex].transform.position;
     }
 
