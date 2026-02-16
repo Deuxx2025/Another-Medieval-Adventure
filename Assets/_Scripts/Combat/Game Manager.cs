@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
     public GameObject Highlight;
     public GameObject EnemyHighlight;
         //Arrays
-    public Characters[] allies;
-    public Characters[] enemies;
+    public Characters[] allies;                 //Array that contains all the player's characters
+    public Characters[] enemies;                //Array that contains all the NPC enemies
     public Characters[] AttackingCharacters;
 
     //Data types
@@ -191,14 +191,6 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-        foreach (Characters ally in allies)
-        {
-            if (ally.IsAlive && !ally.HasAttacked)
-            {
-                return;
-            }
-        }
-
         //CoinFlip
         for (int i = 0; i < 2; i++)
         {
@@ -221,8 +213,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        print(Attacker.CurrentHP);
-        print(Target.CurrentHP);
+        foreach (Characters ally in allies)
+        {
+            if (ally.IsAlive && !ally.HasAttacked)
+            {
+                return;
+            }
+        }
+
 
         foreach (Characters ally in allies)
         {
