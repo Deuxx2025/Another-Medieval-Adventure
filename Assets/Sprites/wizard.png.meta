@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pixil-frame-0_1_0
+      name: wizard_0
       rect:
         serializedVersion: 2
         x: 89
@@ -134,7 +134,7 @@ TextureImporter:
         width: 404
         height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a1c4a8a3b2d626a4a9f009f985d5b7a9
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pixil-frame-0_1_0: 9133146717860029907
+      wizard_0: 9133146717860029907
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
