@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public int AllyIndex;               //holds the index for the ally Array
     public int EnemyIndex;              //holds the index for the enemy Array
     public bool isAttacking = false;    //Changes the battle state when the player is selecting and when its attacking
+    public bool PlayersTurn = true;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,18 +30,23 @@ public class GameManager : MonoBehaviour
     {
         //Calling the respective methods of the states
         //and also making the highlight of the enemy be dynamic  
-        if (isAttacking)
+        if (PlayersTurn == true)
         {
-            EnemyHighlight.SetActive(true);
-            EnemySelection();
+            if (isAttacking)
+            {
+                EnemyHighlight.SetActive(true);
+                EnemySelection();
+            }
+            else
+            {
+                EnemyHighlight.SetActive(false);
+                AllySelection();
+            }
         }
         else
         {
-            EnemyHighlight.SetActive(false);
-            AllySelection();
+            
         }
-
-        
     }
 
     //For future use (16/2/26)
@@ -152,11 +158,14 @@ public class GameManager : MonoBehaviour
 
     public void AttackStorage()
     {
+        //We accessed the Scriptable Object called Characters with Attacker and Target variables
+        //Those variables receive the current index of the array
         Characters Attacker = allies[AllyIndex];
         Characters Target = enemies[EnemyIndex];
-        
+        //These two for loops indexes the attacker and defender in the AttackingCharacters Array
         for (int i = 0; i < AttackingCharacters.Length; i++)
         {
+            //When it detects that the index is empty then it receive the current ally and enemy
             if (AttackingCharacters[i] == null)
             {
                 AttackingCharacters[i] = Attacker;
@@ -172,7 +181,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
-
+        //Code commented to use as a reset or clean once the list is full (incomplete)
         /*
         for (int i = 0; i < AttackingCharacters.Length; i++)
         {
@@ -183,16 +192,16 @@ public class GameManager : MonoBehaviour
             }
         }
         */
-
+        //Fallback code to ensure that this method stops as soon as it detects no ally or enemy alive
         if (!Attacker.IsAlive || !Target.IsAlive)
         {
             return;
         }
 
         //Target.DamageCalculation(Attacker.AttackDamge);
-
+        //Sets the isAttacking state to false
         isAttacking = false;
-
+        //Move the current index when it doesn't detect a valid target
         int lenght = allies.Length;
             for (int i = 0; i < lenght; i++)
             {
@@ -204,12 +213,17 @@ public class GameManager : MonoBehaviour
             }
 
         //CoinFlip
+        //This `for` increments a value from 0 to 1 
         for (int i = 0; i < 2; i++)
         {
+            //Then it generates a random number from 0 to 1 and it stores it in amount
             int amount;
             amount = Random.Range(0,2);
+            //When the incremet hits 0 it runs the following code
             if (i == 0)
             {
+                //When the amount is 1 then Target receive damage
+                //and we send the Attacker's damage as a parameter to the DamageCalculation method in the Characters script
                 if (amount == 1)
                 {
                     Target.DamageCalculation(Attacker.AttackDamge);
@@ -217,14 +231,16 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                //This does the exact same thing but backwards because this increment and amount value corresponds to the enemy
                 if (amount == 1)
                 {
                     Attacker.DamageCalculation(Target.AttackDamge);
                 }
                         
             }
+            //With this we get to generate randomly two numbers simultaneously and assign behaviours to it
         }
-
+        //Here we are checking in the array if there is someone who is alive and hasn't attacked so that the method can end
         foreach (Characters ally in allies)
         {
             if (ally.IsAlive && !ally.HasAttacked)
@@ -233,7 +249,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
+        //This is a type of reset because when the previous check doesn't run here it gives all the allies the ability to attack
         foreach (Characters ally in allies)
         {
             ally.HasAttacked = false;
