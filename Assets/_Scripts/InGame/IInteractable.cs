@@ -1,4 +1,5 @@
 public interface IInteractable
 {
-    void Interact();
+    void Interact(PlayerInventory inventory);
+    bool CanInteract();
 }

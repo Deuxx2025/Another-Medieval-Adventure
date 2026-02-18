@@ -16,7 +16,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         IInteractable interactable = collision.GetComponent<IInteractable>();
 
-        if (interactable != null)
+        if (interactable != null && interactable.CanInteract())
         {
             currentInteractable = interactable;
             interactionIcon.SetActive(true);
@@ -37,7 +37,13 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (context.performed && currentInteractable != null)
         {
-            currentInteractable.Interact();
+            PlayerInventory inventory = GetComponent<PlayerInventory>();
+            currentInteractable.Interact(inventory);
+
+            if (!currentInteractable.CanInteract())
+            {
+                interactionIcon.SetActive(false);
+            }
         }
     }
 
