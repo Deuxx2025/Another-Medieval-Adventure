@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            
+            EnemyCheck();
         }
     }
 
@@ -158,96 +158,121 @@ public class GameManager : MonoBehaviour
 
     public void AttackStorage()
     {
-        //We accessed the Scriptable Object called Characters with Attacker and Target variables
-        //Those variables receive the current index of the array
-        Characters Attacker = allies[AllyIndex];
-        Characters Target = enemies[EnemyIndex];
-        //These two for loops indexes the attacker and defender in the AttackingCharacters Array
-        for (int i = 0; i < AttackingCharacters.Length; i++)
+        if (PlayersTurn == true)
         {
-            //When it detects that the index is empty then it receive the current ally and enemy
-            if (AttackingCharacters[i] == null)
+            //We accessed the Scriptable Object called Characters with Attacker and Target variables
+            //Those variables receive the current index of the array
+            Characters Attacker = allies[AllyIndex];
+            Characters Target = enemies[EnemyIndex];
+            //These two for loops indexes the attacker and defender in the AttackingCharacters Array
+            for (int i = 0; i < AttackingCharacters.Length; i++)
             {
-                AttackingCharacters[i] = Attacker;
-                break;
-            }
-        }
-
-        for (int i = 0; i < AttackingCharacters.Length; i++)
-        {
-            if (AttackingCharacters[i] == null)
-            {
-                AttackingCharacters[i] = Target;
-                break;
-            }
-        }
-        //Code commented to use as a reset or clean once the list is full (incomplete)
-        /*
-        for (int i = 0; i < AttackingCharacters.Length; i++)
-        {
-            if (AttackingCharacters[i] != null)
-            {
-                AttackingCharacters[i] = null;
-                break;
-            }
-        }
-        */
-        //Fallback code to ensure that this method stops as soon as it detects no ally or enemy alive
-        if (!Attacker.IsAlive || !Target.IsAlive)
-        {
-            return;
-        }
-
-        //Target.DamageCalculation(Attacker.AttackDamge);
-        //Sets the isAttacking state to false
-        isAttacking = false;
-        //Move the current index when it doesn't detect a valid target
-        int lenght = allies.Length;
-            for (int i = 0; i < lenght; i++)
-            {
-                AllyIndex = (AllyIndex - 1 + lenght) % lenght;
-                if (allies[AllyIndex].IsAlive)
+                //When it detects that the index is empty then it receive the current ally and enemy
+                if (AttackingCharacters[i] == null)
                 {
+                    AttackingCharacters[i] = Attacker;
                     break;
                 }
             }
 
-        //CoinFlip
-        //This `for` increments a value from 0 to 1 
-        for (int i = 0; i < 2; i++)
-        {
-            //Then it generates a random number from 0 to 1 and it stores it in amount
-            int amount;
-            amount = Random.Range(0,2);
-            //When the incremet hits 0 it runs the following code
-            if (i == 0)
+            for (int i = 0; i < AttackingCharacters.Length; i++)
             {
-                //When the amount is 1 then Target receive damage
-                //and we send the Attacker's damage as a parameter to the DamageCalculation method in the Characters script
-                if (amount == 1)
+                if (AttackingCharacters[i] == null)
                 {
-                    Target.DamageCalculation(Attacker.AttackDamge);
+                    AttackingCharacters[i] = Target;
+                    break;
                 }
             }
-            else
+            //Code commented to use as a reset or clean once the list is full (incomplete)
+            /*
+            for (int i = 0; i < AttackingCharacters.Length; i++)
             {
-                //This does the exact same thing but backwards because this increment and amount value corresponds to the enemy
-                if (amount == 1)
+                if (AttackingCharacters[i] != null)
                 {
-                    Attacker.DamageCalculation(Target.AttackDamge);
+                    AttackingCharacters[i] = null;
+                    break;
                 }
-                        
             }
-            //With this we get to generate randomly two numbers simultaneously and assign behaviours to it
-        }
-        //Here we are checking in the array if there is someone who is alive and hasn't attacked so that the method can end
-        foreach (Characters ally in allies)
-        {
-            if (ally.IsAlive && !ally.HasAttacked)
+            */
+            //Fallback code to ensure that this method stops as soon as it detects no ally or enemy alive
+            if (!Attacker.IsAlive || !Target.IsAlive)
             {
                 return;
             }
+
+            //Target.DamageCalculation(Attacker.AttackDamge);
+            //Sets the isAttacking state to false
+            isAttacking = false;
+            //Move the current index when it doesn't detect a valid target
+            int lenght = allies.Length;
+                for (int i = 0; i < lenght; i++)
+                {
+                    AllyIndex = (AllyIndex - 1 + lenght) % lenght;
+                    if (allies[AllyIndex].IsAlive)
+                    {
+                        break;
+                    }
+                }
+
+            //CoinFlip
+            //This `for` increments a value from 0 to 1 
+            for (int i = 0; i < 2; i++)
+            {
+                //Then it generates a random number from 0 to 1 and it stores it in amount
+                int amount;
+                amount = Random.Range(0,2);
+                //When the incremet hits 0 it runs the following code
+                if (i == 0)
+                {
+                    //When the amount is 1 then Target receive damage
+                    //and we send the Attacker's damage as a parameter to the DamageCalculation method in the Characters script
+                    if (amount == 1)
+                    {
+                        Target.DamageCalculation(Attacker.AttackDamge);
+                    }
+                }
+                else
+                {
+                    //This does the exact same thing but backwards because this increment and amount value corresponds to the enemy
+                    if (amount == 1)
+                    {
+                        Attacker.DamageCalculation(Target.AttackDamge);
+                    }
+                        
+                }
+                //With this we get to generate randomly two numbers simultaneously and assign behaviours to it
+            }
+            //Here we are checking in the array if there is someone who is alive and hasn't attacked so that the method can end
+            foreach (Characters ally in allies)
+            {
+                if (ally.IsAlive && !ally.HasAttacked)
+                {
+                    return;
+                }
+            }
+
+            foreach (Characters ally in allies)
+            {
+                if (ally.HasAttacked)
+                {
+                    PlayersTurn = false;
+                    return;
+                }
+            }
         }
+        else
+        {
+            int Randomize;
+            Randomize = Random.Range(0,3);
+            Characters Attacker = enemies[Randomize];
+            Characters Target = allies[Randomize];
+
+            if (Attacker.IsAlive && !Attacker.HasAttacked)
+            {
+                
+            }
+        }
+        
 
         //This is a type of reset because when the previous check doesn't run here it gives all the allies the ability to attack
         foreach (Characters ally in allies)
@@ -255,5 +280,16 @@ public class GameManager : MonoBehaviour
             ally.HasAttacked = false;
         }
 
+    }
+
+    public void EnemyCheck()
+    {
+        foreach (Characters enemy in enemies)
+        {
+            if (enemy.IsAlive && !enemy.HasAttacked)
+            {
+                AttackStorage();
+            }
+        }
     }
 }
