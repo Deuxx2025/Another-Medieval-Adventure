@@ -3,6 +3,7 @@ using Unity.Cinemachine;
 using UnityEditorInternal;
 using UnityEngine.InputSystem.iOS;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour, IInteractable
 {
@@ -27,6 +28,7 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (!inventory.hasKey) return;
 
+        /*
         Rigidbody2D rb = inventory.GetComponent<Rigidbody2D>();
 
         rb.linearVelocity = Vector2.zero;
@@ -34,6 +36,9 @@ public class Door : MonoBehaviour, IInteractable
         
         confiner.BoundingShape2D = newRoomConfiner;
         confiner.InvalidateBoundingShapeCache();
+        */
+
+        SceneManager.LoadScene("Combat");
 
         Debug.Log("Teleported!");
     }
