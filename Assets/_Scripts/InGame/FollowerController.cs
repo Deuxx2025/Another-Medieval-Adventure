@@ -3,13 +3,14 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class FollowerController : MonoBehaviour
 {
+    // Target position
     public Transform target;
 
-    [Header("Movement")]
+    [Header("Movement")] // Movement settings
     public float moveSpeed = 10f;
     public float followDistance = 5f;
 
-    [Header("Obstacle Avoidance")]
+    [Header("Obstacle Avoidance")] // Avoidance settings
     public float rayDistance = 2f;
     public LayerMask obstacleLayer;
     public float avoidStrength = 3f;
@@ -19,17 +20,19 @@ public class FollowerController : MonoBehaviour
 
     void Start()
     {
+        // Finding follower's rb and camera
         rb = GetComponent<Rigidbody2D>();
         mainCam = Camera.main;
 
     }
     void TeleportNearPlayer()
     {
-        if (target == null) return;
+        if (target == null) return; // Does not run if there is no movement
 
         float radius = 1f;
 
-        // 1️⃣ Try fixed directions first (cleaner than random)
+        #region Avoidance Logic
+        // Try fixed directions first (cleaner than random)
         Vector2[] directions = new Vector2[]
         {
         Vector2.right,
@@ -72,6 +75,7 @@ public class FollowerController : MonoBehaviour
         // 3️⃣ Absolute fallback: force to player position
         transform.position = target.position;
         rb.linearVelocity = Vector2.zero;
+        #endregion
     }
 
 
@@ -79,7 +83,7 @@ public class FollowerController : MonoBehaviour
     {
         if (target == null) return;
 
-        Vector2 toTarget = target.position - transform.position;
+        Vector2 toTarget = target.position - transform.position; // Vector to the Player's trail
         float distance = toTarget.magnitude;
 
         Vector2 followForce = Vector2.zero;
@@ -90,7 +94,6 @@ public class FollowerController : MonoBehaviour
             followForce = toTarget.normalized;
         }
 
-        // AVOIDANCE
 
         Vector2 avoidForce = Vector2.zero;
 
@@ -104,7 +107,7 @@ public class FollowerController : MonoBehaviour
 
         if (hit.collider != null)
         {
-            // Obstacle detected → steer sideways
+            // Obstacle detected: steer sideways
             Vector2 perpendicular = Vector2.Perpendicular(toTarget.normalized);
             avoidForce = perpendicular * avoidStrength;
         }
@@ -119,6 +122,7 @@ public class FollowerController : MonoBehaviour
 
     void LateUpdate()
     {
+        // Teleport near player if off the screen
         if (!IsVisible())
         {
             TeleportNearPlayer();
@@ -134,15 +138,5 @@ public class FollowerController : MonoBehaviour
                 viewportPos.y < 1 &&
                 viewportPos.z > 0;
         }
-    }
-
-    // Optional
-    private void OnDrawGizmosSelected()
-    {
-        if (target == null) return;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position,
-            transform.position + (Vector3)((target.position - transform.position).normalized * rayDistance));
     }
 }

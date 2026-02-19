@@ -1,24 +1,23 @@
 using UnityEngine;
 using Unity.Cinemachine;
-using UnityEditorInternal;
-using UnityEngine.InputSystem.iOS;
-using System.Runtime.CompilerServices;
 using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour, IInteractable
 {
-
+    // Assigning teleport point and new room confiner
     [SerializeField] private Transform teleportPoint;
     [SerializeField] private Collider2D newRoomConfiner;
 
+    // Camera confiner
     private CinemachineConfiner2D confiner;
 
     private void Start()
     {
-        confiner = FindFirstObjectByType<CinemachineConfiner2D>();    
+        confiner = FindFirstObjectByType<CinemachineConfiner2D>(); // Find camera confiner    
     }
     public bool CanInteract()
     {
+        // Door is only interactable when the player has got a key
         PlayerInventory player = FindFirstObjectByType<PlayerInventory>();
 
         return player != null && player.hasKey;
@@ -26,26 +25,10 @@ public class Door : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInventory inventory)
     {
+        // Stop if the player does not have a key
         if (!inventory.hasKey) return;
 
-        /*
-        Rigidbody2D rb = inventory.GetComponent<Rigidbody2D>();
-
-        rb.linearVelocity = Vector2.zero;
-        rb.position = teleportPoint.position;
-        
-        confiner.BoundingShape2D = newRoomConfiner;
-        confiner.InvalidateBoundingShapeCache();
-        */
-
+        // Change to Combat Scene if the player opens the door with a key
         SceneManager.LoadScene("Combat");
-
-        Debug.Log("Teleported!");
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Collision with:" + collision.gameObject.name);
-    }
-
 }
