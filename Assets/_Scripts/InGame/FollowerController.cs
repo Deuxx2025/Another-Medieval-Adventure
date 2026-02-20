@@ -7,7 +7,9 @@ public class FollowerController : MonoBehaviour
     public Transform target;
 
     [Header("Movement")] // Movement settings
-    public float moveSpeed = 10f;
+    [SerializeField] private float moveSpeed = 15f; // Speed setting
+    [SerializeField] float acceletarion = 35f; // Speed setting
+    [SerializeField] float deceleration = 45f; // Speed setting
     public float followDistance = 5f;
 
     [Header("Obstacle Avoidance")] // Avoidance settings
@@ -117,7 +119,24 @@ public class FollowerController : MonoBehaviour
         if ( finalDirection != Vector2.zero)
             finalDirection.Normalize();
 
-        rb.linearVelocity = finalDirection * moveSpeed;
+        Vector2 targetVelocity = finalDirection * moveSpeed;
+
+        if (finalDirection.magnitude > 0.1f)
+        {
+            rb.linearVelocity = Vector2.MoveTowards(
+                rb.linearVelocity,
+                targetVelocity,
+                acceletarion * Time.fixedDeltaTime
+                );
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.MoveTowards(
+                rb.linearVelocity,
+                Vector2.zero,
+                deceleration * Time.fixedDeltaTime
+                );
+        }
     }
 
     void LateUpdate()
