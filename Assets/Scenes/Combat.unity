@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 56800684}
   - component: {fileID: 56800683}
   - component: {fileID: 56800682}
-  - component: {fileID: 56800686}
   - component: {fileID: 56800687}
   m_Layer: 0
   m_Name: Wizard
@@ -277,18 +276,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &56800686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56800681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecad29dc62b530c4bab9ef170da0775f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::wizard
 --- !u!114 &56800687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +306,6 @@ GameObject:
   - component: {fileID: 206827299}
   - component: {fileID: 206827298}
   - component: {fileID: 206827297}
-  - component: {fileID: 206827301}
   - component: {fileID: 206827302}
   m_Layer: 0
   m_Name: Scientist
@@ -465,18 +451,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &206827301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206827296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 716159b5e8266a34d98c61983300672e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::scientist
 --- !u!114 &206827302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,7 +481,6 @@ GameObject:
   - component: {fileID: 379178718}
   - component: {fileID: 379178717}
   - component: {fileID: 379178716}
-  - component: {fileID: 379178720}
   - component: {fileID: 379178721}
   m_Layer: 0
   m_Name: Engineer
@@ -653,18 +626,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &379178720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379178715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fed71244f69236045be93bd30cbf4823, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::engineer
 --- !u!114 &379178721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1020,7 +981,6 @@ GameObject:
   - component: {fileID: 767457292}
   - component: {fileID: 767457291}
   - component: {fileID: 767457290}
-  - component: {fileID: 767457294}
   - component: {fileID: 767457295}
   m_Layer: 0
   m_Name: Warrior
@@ -1166,18 +1126,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &767457294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767457289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f40a09ab1a2e28b4d85fd02bccee7786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::warrior
 --- !u!114 &767457295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,8 +1282,8 @@ MonoBehaviour:
   - {fileID: 0}
   AllyIndex: 0
   EnemyIndex: 0
-  RandomNumber: 0
   isAttacking: 0
+  PlayersTurn: 1
 --- !u!4 &1346323518
 Transform:
   m_ObjectHideFlags: 0
@@ -1363,7 +1311,6 @@ GameObject:
   - component: {fileID: 1564666879}
   - component: {fileID: 1564666878}
   - component: {fileID: 1564666877}
-  - component: {fileID: 1564666881}
   - component: {fileID: 1564666882}
   m_Layer: 0
   m_Name: Archer
@@ -1509,18 +1456,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1564666881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564666876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b623e71db2f8cee41bb11506b5ce1317, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::archer
 --- !u!114 &1564666882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,7 +1486,6 @@ GameObject:
   - component: {fileID: 2111698714}
   - component: {fileID: 2111698713}
   - component: {fileID: 2111698712}
-  - component: {fileID: 2111698716}
   - component: {fileID: 2111698717}
   m_Layer: 0
   m_Name: Knight
@@ -1697,18 +1631,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2111698716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111698711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c7c60f6a57134d40af9006696e26d85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::knight
 --- !u!114 &2111698717
 MonoBehaviour:
   m_ObjectHideFlags: 0
