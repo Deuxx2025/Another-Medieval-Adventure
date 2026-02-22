@@ -3,10 +3,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement: MonoBehaviour
 {
-    [SerializeField] private float speed = 15f; // Speed setting
-    [SerializeField] float acceletarion = 35f; // Speed setting
-    [SerializeField] float deceleration = 45f; // Speed setting
-
+    [Header("Speed Settings")]
+    [SerializeField] private float speed = 15f; 
+    [SerializeField] float acceletarion = 35f; 
+    [SerializeField] float deceleration = 45f;
 
     private Vector2 moveInput; // Arrows or WASD movement
     private Rigidbody2D rb; // rb
@@ -18,7 +18,7 @@ public class PlayerMovement: MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<Vector2>().normalized; // Read input direction
+        moveInput = context.ReadValue<Vector2>(); // Read input direction
     }
 
     private void FixedUpdate()
