@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
         //Dynamically update the highlight positions depending on the selected enemy
         EnemyHighlight.transform.position = enemies[EnemyIndex].transform.position;
     }
-
+    #region Battle Logic
     public void AttackStorage()
     {
         if (PlayersTurn == true)
@@ -186,8 +186,7 @@ public class GameManager : MonoBehaviour
             }
 
             //Target.DamageCalculation(Attacker.AttackDamge);
-            //Sets the isAttacking state to false
-            //isAttacking = false;
+    
             for (int i = 0; i < allies.Length; i++)
             {
                 //AllyIndex uses a modular approach so that the player can't go beyond the limits of the array preventing an overflow
@@ -278,6 +277,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    #endregion
 
     public void EnemyCheck()
     {
