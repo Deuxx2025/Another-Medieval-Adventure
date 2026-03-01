@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,20 +33,34 @@ public class GameManager : MonoBehaviour
         //and also making the highlight of the enemy be dynamic  
         if (PlayersTurn == true)
         {
-            if (isAttacking)
+            if (AllyCheck())
             {
-                EnemyHighlight.SetActive(true);
-                EnemySelection();
+                if (isAttacking)
+                {
+                    EnemyHighlight.SetActive(true);
+                    EnemySelection();
+                }
+                else
+                {
+                    EnemyHighlight.SetActive(false);
+                    AllySelection();
+                }
             }
             else
             {
-                EnemyHighlight.SetActive(false);
-                AllySelection();
+                print("The End");
             }
         }
         else
         {
-            EnemyCheck();
+            if (EnemyCheck())
+            {
+                AttackStorage();
+            }
+            else
+            {
+                print("Gay Over");
+            }
         }
     }
 
@@ -197,6 +212,7 @@ public class GameManager : MonoBehaviour
                     break;
                 }
             }
+
             foreach (Characters ally in allies)
             {
                 if (ally.IsAlive && !ally.HasAttacked)
@@ -246,8 +262,7 @@ public class GameManager : MonoBehaviour
             {
                 if (ally.HasAttacked)
                 {
-                    // PlayersTurn = false;
-                    ally.HasAttacked = false;
+                    PlayersTurn = false;
                 }
             }
 
@@ -259,34 +274,52 @@ public class GameManager : MonoBehaviour
         else
         {
             int Randomize;
-            Randomize = Random.Range(0,3);
-            Characters Attacker = enemies[Randomize];
-            Characters Target = allies[Randomize];
-
-            if (Attacker.IsAlive && !Attacker.HasAttacked)
+            int lenght = enemies.Length;
+            for (int i = 0; i < lenght; i++)
             {
-                
+                if (enemies[i].IsAlive)
+                {
+                    Randomize = Random.Range(0,3);
+                    while (!allies[Randomize].IsAlive)
+                    {
+                        Randomize = Random.Range(0,3);
+                    }
+                    Characters Target = allies[Randomize];
+                    Characters Attacker = enemies[i];
+                    
+                }
+            }
+            PlayersTurn = true;
+            //This is a type of reset because when the previous check doesn't run here it gives all the allies the ability to attack
+            foreach (Characters ally in allies)
+            {
+                ally.HasAttacked = false;
             }
         }
-        
-
-        //This is a type of reset because when the previous check doesn't run here it gives all the allies the ability to attack
-        foreach (Characters ally in allies)
-        {
-            ally.HasAttacked = false;
-        }
-
     }
     #endregion
 
-    public void EnemyCheck()
+    public bool EnemyCheck()
     {
         foreach (Characters enemy in enemies)
         {
-            if (enemy.IsAlive && !enemy.HasAttacked)
+            if (enemy.IsAlive)
             {
-                AttackStorage();
+                return true;
             }
         }
+        return false;
+    }
+
+    public bool AllyCheck()
+    {
+        foreach (Characters ally in allies)
+        {
+            if (ally.IsAlive)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
