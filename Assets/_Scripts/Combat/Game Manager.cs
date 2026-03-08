@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -60,6 +62,22 @@ public class GameManager : MonoBehaviour
             else
             {
                 print("Gay Over");
+            }
+        }
+
+        for (int i = 0; i < allies.Length; i++)
+        {
+            if (!allies[i].IsAlive)
+            {
+                allies[i].gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (!enemies[i].IsAlive)
+            {
+                enemies[i].gameObject.SetActive(false);
             }
         }
     }
@@ -220,8 +238,7 @@ public class GameManager : MonoBehaviour
                     return;
                 }
             }
-
-            for (int i = 0; i < AttackingCharacters.Length/2 ; i++) // iterate in each of our allies (0,1,2)
+            for (int i = 0; i < AttackingCharacters.Count(x => x != null)/2 ; i++) // iterate in each of our allies (0,1,2)
             {
                 //We accessed the Scriptable Object called Characters with Attacker and Target variables
                 //Those variables receive the current index of the array
@@ -280,13 +297,66 @@ public class GameManager : MonoBehaviour
                 if (enemies[i].IsAlive)
                 {
                     Randomize = Random.Range(0,3);
-                    while (!allies[Randomize].IsAlive)
+                    while (!allies[Randomize].IsAlive && AllyCheck())
                     {
                         Randomize = Random.Range(0,3);
                     }
-                    Characters Target = allies[Randomize];
-                    Characters Attacker = enemies[i];
-                    
+
+                    for (int k = 0; k < AttackingCharacters.Length; k++)
+                    {
+                        //When it detects that the index is empty then it receive the current ally and enemy
+                        if (AttackingCharacters[k] == null)
+                        {
+                            AttackingCharacters[k] = enemies[i];
+                            break;
+                        }
+                    }
+
+                    for (int k = 0; k < AttackingCharacters.Length; k++)
+                    {
+                        if (AttackingCharacters[k] == null)
+                        {
+                            AttackingCharacters[k] = allies[Randomize];
+                            break;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < AttackingCharacters.Count(x => x != null)/2 ; i++) // iterate in each of our allies (0,1,2)
+            {
+                //We accessed the Scriptable Object called Characters with Attacker and Target variables
+                //Those variables receive the current index of the array
+                Characters Attacker = AttackingCharacters[i*2]; // 0,2,4
+                Characters Target = AttackingCharacters[i*2+1]; // 1,3,5
+
+                //CoinFlip
+                //This `for` increments a value from 0 to 1 
+                for (int j = 0; j < 2; j++) // "j" represents the calculation of i=0: Ally to Enemy; i=1: Enemy to Ally
+                {
+                    //Then it generates a random number from 0 to 1 and it stores it in amount
+                    int amount;
+                    amount = Random.Range(0, 2);
+                    //When the incremet hits 0 it runs the following code
+                    if (j == 0)
+                    {
+                        //When the amount is 1 then Target receive damage
+                        //and we send the Attacker's damage as a parameter to the DamageCalculation method in the Characters script
+                        if (amount == 1)
+                        {
+                            Target.DamageCalculation(Attacker.AttackDamge);
+                        }
+                    }
+                    else
+                    {
+                        //This does the exact same thing but backwards because this increment and amount value corresponds to the enemy
+                        if (amount == 1)
+                        {
+                            Attacker.DamageCalculation(Target.AttackDamge);
+                        }
+
+                    }
+                    //With this we get to generate randomly two numbers simultaneously and assign behaviours to it
                 }
             }
             PlayersTurn = true;
@@ -295,6 +365,11 @@ public class GameManager : MonoBehaviour
             {
                 ally.HasAttacked = false;
             }
+        }
+
+        if (!EnemyCheck() || !AllyCheck())
+        {
+            SceneManager.LoadScene("InGame");
         }
     }
     #endregion
