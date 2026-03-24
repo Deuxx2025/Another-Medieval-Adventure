@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405f8ef3c61f6ae4484041fff5bb5e3a, type: 3}
   m_Name: Papota
   m_EditorClassIdentifier: Assembly-CSharp::BattleItem
-  itemName: 
-  icon: {fileID: 0}
-  attackModifier: 0
+  itemName: Papota
+  icon: {fileID: -7224749490847444304, guid: bfdd82744c9c52343aa8c1a64ed9940c, type: 3}
+  attackModifier: 2
   healthModifier: 0
   luckModifier: 0

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405f8ef3c61f6ae4484041fff5bb5e3a, type: 3}
   m_Name: Potion
   m_EditorClassIdentifier: Assembly-CSharp::BattleItem
-  itemName: 
+  itemName: Potion
   icon: {fileID: 0}
   attackModifier: 0
-  healthModifier: 0
+  healthModifier: 1
   luckModifier: 0
