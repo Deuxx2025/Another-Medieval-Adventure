@@ -15,6 +15,9 @@ public class Chest : MonoBehaviour, IInteractable
     public bool containsKey = false;
     private bool isOpened = false;
 
+    // Items
+    public BattleItem itemInside;
+
     // Renderer
     private SpriteRenderer spriteRenderer;
 
@@ -61,7 +64,10 @@ public class Chest : MonoBehaviour, IInteractable
         isOpened = true;
         spriteRenderer.sprite = openedSprite;
 
-
+        if (itemInside != null)
+        {
+            inventory.AddItem(itemInside);
+        }
         if (containsKey) // If the opened chest contains a key
         {
             inventory.CollectKey(); // Add key to inventory
@@ -70,14 +76,21 @@ public class Chest : MonoBehaviour, IInteractable
             // Open all other chests
             foreach (Chest chest in AllChests) 
             {
-                if (chest != this)
+                if (chest != this & chest.itemInside == null)
                 {
                     chest.ForceOpen();
                 }
             }
         }
         else { // If the opened chest does not contain a key
-            UIManager.Instance.ShowMessage("There is no key in here!", false); // Failure message
+            if (itemInside == null)
+            {
+                UIManager.Instance.ShowMessage("There is nothing in here!", false); // Failure message
+            }
+            else
+            {
+                UIManager.Instance.ShowMessage("You just found a " + itemInside.itemName +"!!!", true); // Failure message
+            }
         }
     }
 }

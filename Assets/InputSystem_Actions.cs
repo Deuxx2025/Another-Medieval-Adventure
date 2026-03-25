@@ -1099,6 +1099,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""87a291df-5c40-4c93-ad3c-479e1a940255"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1222,6 +1231,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b70d841-00c9-4cc5-af94-f94186dc650f"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1316,6 +1336,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_InGame = asset.FindActionMap("InGame", throwIfNotFound: true);
         m_InGame_Move = m_InGame.FindAction("Move", throwIfNotFound: true);
         m_InGame_Interact = m_InGame.FindAction("Interact", throwIfNotFound: true);
+        m_InGame_Inventory = m_InGame.FindAction("Inventory", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -1779,6 +1800,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IInGameActions> m_InGameActionsCallbackInterfaces = new List<IInGameActions>();
     private readonly InputAction m_InGame_Move;
     private readonly InputAction m_InGame_Interact;
+    private readonly InputAction m_InGame_Inventory;
     /// <summary>
     /// Provides access to input actions defined in input action map "InGame".
     /// </summary>
@@ -1798,6 +1820,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "InGame/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_InGame_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "InGame/Inventory".
+        /// </summary>
+        public InputAction @Inventory => m_Wrapper.m_InGame_Inventory;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1830,6 +1856,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
         }
 
         /// <summary>
@@ -1847,6 +1876,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
         }
 
         /// <summary>
@@ -2115,5 +2147,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Inventory" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInventory(InputAction.CallbackContext context);
     }
 }
