@@ -18,11 +18,17 @@ public class GameManager : MonoBehaviour
     public int EnemyIndex;              //holds the index for the enemy Array
     public bool isAttacking = false;    //Changes the battle state when the player is selecting and when its attacking
     public bool PlayersTurn = true;
-    
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        var items = PlayerInventory.instance.items;
+
+        foreach (var item in items)
+        {
+            Debug.Log(item.item.name);
+        }    
     }
 
     // Update is called once per frame
