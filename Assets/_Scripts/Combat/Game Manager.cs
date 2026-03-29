@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var item in items)
         {
-            Debug.Log(item.item.name);
+            Debug.Log(item.item.name + ": "+ item.quantity);
         }    
     }
 

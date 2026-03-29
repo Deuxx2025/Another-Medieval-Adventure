@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -11,18 +9,23 @@ public class PlayerInventory : MonoBehaviour
     public List<InventorySlot> items = new List<InventorySlot>();
 
     public static PlayerInventory instance;
+
+    [SerializeField] private InventorySlot slotPrefab;      // Arrastra el prefab aquí
+    [SerializeField] private Transform itemsContainer;   // Panel padre en la UI
+
     public void AddItem(BattleItem item)
     {
         foreach (InventorySlot slot in items)
         {
-            if (slot.item == item)
+            if (slot.IsSameItem(item)) 
             {
-                slot.quantity++;
+                slot.AddItem();
                 return;
             }
         }
 
-        InventorySlot newSlot = new InventorySlot { item = item, quantity = 1 };
+        InventorySlot newSlot = Instantiate(slotPrefab, itemsContainer);
+        newSlot.SetItem(item);
         items.Add(newSlot);
 
         Debug.Log("Slot item:" + newSlot.item);

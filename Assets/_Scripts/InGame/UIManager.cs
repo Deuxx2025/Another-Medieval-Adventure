@@ -86,7 +86,10 @@ public class UIManager : MonoBehaviour
         foreach (InventorySlot slot in playerInventory.items)
         {
             GameObject icon = Instantiate(itemPrefab, itemsContainer);
-            Image img = icon.GetComponent<Image>();
+
+            Transform iconChild = icon.transform.Find("Icon");
+
+            Image img = iconChild.GetComponent<Image>();
             img.sprite = slot.item.icon;
 
             TextMeshProUGUI qty = icon.GetComponentInChildren<TextMeshProUGUI>();
