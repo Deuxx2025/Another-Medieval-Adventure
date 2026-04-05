@@ -83,12 +83,21 @@ public class UIManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (BattleItem item in playerInventory.items)
+        foreach (InventorySlot slot in playerInventory.items)
         {
             GameObject icon = Instantiate(itemPrefab, itemsContainer);
 
-            UnityEngine.UI.Image img = icon.GetComponent<UnityEngine.UI.Image>();
-            img.sprite = item.icon;
+            Transform iconChild = icon.transform.Find("Icon");
+
+            Image img = iconChild.GetComponent<Image>();
+            img.sprite = slot.item.icon;
+
+            TextMeshProUGUI qty = icon.GetComponentInChildren<TextMeshProUGUI>();
+
+            if(slot.quantity > 1)
+                qty.text = "x"+slot.quantity.ToString();
+            else
+                qty.text = "";
         }
     }
 

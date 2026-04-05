@@ -1284,6 +1284,7 @@ MonoBehaviour:
   EnemyIndex: 0
   isAttacking: 0
   PlayersTurn: 1
+  inventory: {fileID: 0}
 --- !u!4 &1346323518
 Transform:
   m_ObjectHideFlags: 0
