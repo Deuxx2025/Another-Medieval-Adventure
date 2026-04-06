@@ -15,9 +15,9 @@ public class HealthDisplay : MonoBehaviour
     {
         foreach (Transform child in heartsContainer)
         {
-            //Destroy(child.GameObject);
-            _hearts.Clear();
+            Destroy(child.gameObject);
         }
+        _hearts.Clear();
 
         for (int i = 0; i < maxHealth; i++)
         {

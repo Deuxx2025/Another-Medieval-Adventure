@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public bool isAttacking = false;    //Changes the battle state when the player is selecting and when its attacking
     public bool PlayersTurn = true;
 
+    public HealthDisplay healthDisplay;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,6 +34,11 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(item.item.name + ": "+ item.quantity);
         }    
+
+        for (int i = 0; i < allies.Length; i++)
+        {
+            //allies[i].healthDisplay
+        }
     }
 
     // Update is called once per frame
