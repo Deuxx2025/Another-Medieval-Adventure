@@ -6,6 +6,7 @@ public class Characters : MonoBehaviour
     public int CurrentHP;
     public int AttackDamge;
     public bool IsAlive;
+    public HealthDisplay healthDisplay;
     public bool HasAttacked;
     public bool DesignatedHero;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,5 +32,6 @@ public class Characters : MonoBehaviour
         {
             IsAlive = false;
         }
+        healthDisplay.UpdateHealth(CurrentHP);
     }
 }

@@ -21,8 +21,8 @@ public class HealthDisplay : MonoBehaviour
 
         for (int i = 0; i < maxHealth; i++)
         {
-            GameObject h = Instantiate(heartPrefab, heartsContainer);
-            _hearts.Add(h.GetComponent<Image>());
+            GameObject heartObject = Instantiate(heartPrefab, heartsContainer);
+            _hearts.Add(heartObject.GetComponent<Image>());
         } 
     }
 
