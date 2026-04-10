@@ -7,7 +7,8 @@ public class HealthDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject heartPrefab; 
     [SerializeField] private Transform heartsContainer; 
-    [SerializeField] private Sprite Hearts;
+    [SerializeField] private Sprite fullHeart;
+    [SerializeField] private Sprite emptyHeart;
 
     private List<Image> _hearts = new List<Image>();
 
@@ -22,15 +23,18 @@ public class HealthDisplay : MonoBehaviour
         for (int i = 0; i < maxHealth; i++)
         {
             GameObject heartObject = Instantiate(heartPrefab, heartsContainer);
-            _hearts.Add(heartObject.GetComponent<Image>());
+            Image heartImage = heartObject.GetComponent<Image>();
+            heartImage.sprite = emptyHeart;
+            _hearts.Add(heartImage);
         } 
+        UpdateHealth(maxHealth);
     }
 
     public void UpdateHealth(int currentHealth)
     {
         for (int i = 0; i < _hearts.Count; i++)
         {
-            _hearts[i].gameObject.SetActive(i < currentHealth);
+            _hearts[i].sprite = i < currentHealth ? fullHeart : emptyHeart;
         }
     }
 }

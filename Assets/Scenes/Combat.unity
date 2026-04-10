@@ -311,7 +311,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthDisplay
   heartPrefab: {fileID: 7345294507063018174, guid: 4b0e4463d8c433c46a5d87002acd923f, type: 3}
   heartsContainer: {fileID: 167896876}
-  Hearts: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  fullHeart: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  emptyHeart: {fileID: 2554615564004328103, guid: cdd8cb4da1b61a942b18444985ec5ea6, type: 3}
 --- !u!1 &91728691
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,7 +669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthDisplay
   heartPrefab: {fileID: 7345294507063018174, guid: 4b0e4463d8c433c46a5d87002acd923f, type: 3}
   heartsContainer: {fileID: 1308354187}
-  Hearts: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  fullHeart: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  emptyHeart: {fileID: 2554615564004328103, guid: cdd8cb4da1b61a942b18444985ec5ea6, type: 3}
 --- !u!1 &261357307
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +925,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthDisplay
   heartPrefab: {fileID: 7345294507063018174, guid: 4b0e4463d8c433c46a5d87002acd923f, type: 3}
   heartsContainer: {fileID: 1286359784}
-  Hearts: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  fullHeart: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  emptyHeart: {fileID: 2554615564004328103, guid: cdd8cb4da1b61a942b18444985ec5ea6, type: 3}
 --- !u!1 &443917494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,7 +1608,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthDisplay
   heartPrefab: {fileID: 7345294507063018174, guid: 4b0e4463d8c433c46a5d87002acd923f, type: 3}
   heartsContainer: {fileID: 261357308}
-  Hearts: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  fullHeart: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  emptyHeart: {fileID: 2554615564004328103, guid: cdd8cb4da1b61a942b18444985ec5ea6, type: 3}
 --- !u!1 &846372847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2320,7 +2324,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthDisplay
   heartPrefab: {fileID: 7345294507063018174, guid: 4b0e4463d8c433c46a5d87002acd923f, type: 3}
   heartsContainer: {fileID: 443917495}
-  Hearts: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  fullHeart: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  emptyHeart: {fileID: 2554615564004328103, guid: cdd8cb4da1b61a942b18444985ec5ea6, type: 3}
 --- !u!1 &1651111422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2819,7 +2824,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthDisplay
   heartPrefab: {fileID: 7345294507063018174, guid: 4b0e4463d8c433c46a5d87002acd923f, type: 3}
   heartsContainer: {fileID: 846372848}
-  Hearts: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  fullHeart: {fileID: -1355060849112928680, guid: 49351eb6b57dac443ab8a4417fa87a0a, type: 3}
+  emptyHeart: {fileID: 2554615564004328103, guid: cdd8cb4da1b61a942b18444985ec5ea6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
