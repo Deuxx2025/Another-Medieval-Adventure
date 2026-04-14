@@ -639,6 +639,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 119927eb-37ab-41f7-8dd2-3c4143899930
     m_ActionName: 'InGame/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 87a291df-5c40-4c93-ad3c-479e1a940255
+    m_ActionName: 'InGame/Inventory[/Keyboard/tab]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: InGame
@@ -671,6 +675,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   hasKey: 0
   items: []
+  slotPrefab: {fileID: 846373019914886196, guid: 4422818bb1c083b42b6dffa6d4f82cde, type: 3}
+  itemsContainer: {fileID: 1844546712}
 --- !u!1 &488226488
 GameObject:
   m_ObjectHideFlags: 0
@@ -105973,7 +105979,7 @@ Transform:
   m_GameObject: {fileID: 1223950220}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.785341, y: 0.0039014313, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
