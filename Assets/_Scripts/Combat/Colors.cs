@@ -18,7 +18,7 @@ public class Colors : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.isAttacking == true)
+        if (GameManager.currentState == GameManager.BattleState.EnemySelection)
         {
             _spriteRendererAlly.color = Color.yellow;
         }

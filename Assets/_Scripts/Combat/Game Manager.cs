@@ -22,31 +22,21 @@ public class GameManager : MonoBehaviour
     //Data types
     public int AllyIndex;               //holds the index for the ally Array
     public int EnemyIndex;              //holds the index for the enemy Array
-    public bool isAttacking = false;    //Changes the battle state when the player is selecting and when its attacking
-    public bool PlayersTurn = true;
     public int selectedItemIndex = -1;
+
+    public enum BattleState
+    {
+        AllySelection,
+        EnemySelection,
+        EnemyTurn
+    }
+
+    public BattleState currentState = BattleState.AllySelection;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        /*
-        var items = PlayerInventory.instance.items;
-
-        foreach (var item in items)
-        {
-            Debug.Log(item.item.name + ": "+ item.quantity);
-        }  
-        */
-
-        foreach (var slot in PlayerInventory.instance.items)
-        {
-            for (int i = 0; i < slot.quantity; i++)
-            {
-                battleItems.Add(slot.item);
-            }
-        }
-
         for (int i = 0; i < allies.Length; i++)
         {
             allies[i].healthDisplay.Initialize(allies[i].Data.MaxHP);
@@ -56,13 +46,22 @@ public class GameManager : MonoBehaviour
         {
             enemies[i].healthDisplay.Initialize(enemies[i].Data.MaxHP);
         }
+
+        foreach (var slot in PlayerInventory.instance.items)
+        {
+            for (int i = 0; i < slot.quantity; i++)
+            {
+                battleItems.Add(slot.item);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         //Calling the respective methods of the states
-        //and also making the highlight of the enemy be dynamic  
+        //and also making the highlight of the enemy be dynamic
+        /*  
         if (PlayersTurn == true)
         {
             if (AllyCheck())
@@ -93,6 +92,36 @@ public class GameManager : MonoBehaviour
             {
                 print("Gay Over");
             }
+        }
+        */
+
+        switch (currentState)
+        {
+            case BattleState.AllySelection:
+                if (AllyCheck())
+                {
+                    EnemyHighlight.SetActive(false);
+                    AllySelection();
+                }
+                else
+                {
+                    print("End");
+                }
+                break;
+            case BattleState.EnemySelection:
+                EnemyHighlight.SetActive(true);
+                EnemySelection();
+                break;
+            case BattleState.EnemyTurn:
+                if (EnemyCheck())
+                {
+                    AttackStorage();
+                }
+                else
+                {
+                    print("gay over");
+                }
+                break;
         }
 
         for (int i = 0; i < allies.Length; i++)
@@ -165,7 +194,7 @@ public class GameManager : MonoBehaviour
                 //This is so that the selected ally can now switch the state and update that character status
                 if (allies[AllyIndex].IsAlive && !allies[AllyIndex].HasAttacked)
                 {
-                    isAttacking = true;
+                    currentState = BattleState.EnemySelection;
                     allies[AllyIndex].HasAttacked = true;
                 }
             }
@@ -256,13 +285,13 @@ public class GameManager : MonoBehaviour
     #region Battle Logic
     public void AttackStorage()
     {
-        if (PlayersTurn == true)
+        if (currentState == BattleState.EnemySelection)
         {
             if (!allies[AllyIndex].IsAlive || !enemies[EnemyIndex].IsAlive)
             {
                 return;
             }
-            isAttacking = false;
+            currentState = BattleState.AllySelection;
             //These two for loops indexes the attacker and defender in the AttackingCharacters Array
             for (int i = 0; i < AttackingCharacters.Length; i++)
             {
@@ -315,6 +344,7 @@ public class GameManager : MonoBehaviour
                 for (int j = 0; j < 2; j++) // "j" represents the calculation of i=0: Ally to Enemy; i=1: Enemy to Ally
                 {
                     //Then it generates a random number from 0 to 1 and it stores it in amount
+                    print("AllyAttack");
                     int amount;
                     amount = Random.Range(0, 2);
                     //When the incremet hits 0 it runs the following code
@@ -344,7 +374,7 @@ public class GameManager : MonoBehaviour
             {
                 if (ally.HasAttacked)
                 {
-                    PlayersTurn = false;
+                    currentState = BattleState.EnemyTurn;
                 }
             }
 
@@ -400,6 +430,7 @@ public class GameManager : MonoBehaviour
                 for (int j = 0; j < 2; j++) // "j" represents the calculation of i=0: Ally to Enemy; i=1: Enemy to Ally
                 {
                     //Then it generates a random number from 0 to 1 and it stores it in amount
+                    print("EnemyAttack");
                     int amount;
                     amount = Random.Range(0, 2);
                     //When the incremet hits 0 it runs the following code
@@ -424,7 +455,7 @@ public class GameManager : MonoBehaviour
                     //With this we get to generate randomly two numbers simultaneously and assign behaviours to it
                 }
             }
-            PlayersTurn = true;
+            currentState = BattleState.AllySelection;
             //This is a type of reset because when the previous check doesn't run here it gives all the allies the ability to attack
             foreach (Characters ally in allies)
             {
