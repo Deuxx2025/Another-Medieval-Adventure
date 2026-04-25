@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 
 public class GameManager : MonoBehaviour
@@ -16,11 +17,14 @@ public class GameManager : MonoBehaviour
     public Characters[] enemies;                //Array that contains all the NPC enemies
     public Characters[] AttackingCharacters;    //Array that contains in pairs the attacking allies and defending enemies
 
+    public List<BattleItem> battleItems = new List<BattleItem>();
+
     //Data types
     public int AllyIndex;               //holds the index for the ally Array
     public int EnemyIndex;              //holds the index for the enemy Array
     public bool isAttacking = false;    //Changes the battle state when the player is selecting and when its attacking
     public bool PlayersTurn = true;
+    public int selectedItemIndex = -1;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,7 +37,15 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(item.item.name + ": "+ item.quantity);
         }  
-        */  
+        */
+
+        foreach (var slot in PlayerInventory.instance.items)
+        {
+            for (int i = 0; i < slot.quantity; i++)
+            {
+                battleItems.Add(slot.item);
+            }
+        }
 
         for (int i = 0; i < allies.Length; i++)
         {
@@ -164,6 +176,8 @@ public class GameManager : MonoBehaviour
         }
         //Dynamically update the highlight positions depending on the selected ally
         Highlight.transform.position = allies[AllyIndex].transform.position;
+
+        ItemSelection();
     }
 
     //Handles the dynamic highlight for the enemies so that the player know which enemy it's being selected
@@ -205,7 +219,40 @@ public class GameManager : MonoBehaviour
         }
         //Dynamically update the highlight positions depending on the selected enemy
         EnemyHighlight.transform.position = enemies[EnemyIndex].transform.position;
+
+        ItemSelection();
     }
+
+    public void ItemSelection()
+    {
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+        {
+            selectedItemIndex++;
+            if (selectedItemIndex >= battleItems.Count)
+            {
+                selectedItemIndex = -1;
+            }
+        }
+
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
+        {
+            selectedItemIndex--;
+            if (selectedItemIndex < -1)
+            {
+                selectedItemIndex = battleItems.Count - 1;
+            }
+        }
+
+        if (selectedItemIndex >= 0)
+        {
+            Debug.Log(battleItems[selectedItemIndex].itemName);
+        }
+        else
+        {
+            Debug.Log("No item selected");
+        }    
+    }
+
     #region Battle Logic
     public void AttackStorage()
     {
