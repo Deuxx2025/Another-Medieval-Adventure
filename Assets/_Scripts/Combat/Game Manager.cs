@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public int AllyIndex;               //holds the index for the ally Array
     public int EnemyIndex;              //holds the index for the enemy Array
     public int selectedItemIndex = -1;
+    public static int skillStage = 1;
     public enum BattleState
     {
         AllySelection,
@@ -341,6 +342,7 @@ public class GameManager : MonoBehaviour
                     return;
                 }
             }
+
             for (int i = 0; i < AttackingCharacters.Count(x => x != null)/2 ; i++) // iterate in each of our allies (0,1,2)
             {
                 //We accessed the Scriptable Object called Characters with Attacker and Target variables
@@ -376,6 +378,20 @@ public class GameManager : MonoBehaviour
 
                     }
                     //With this we get to generate randomly two numbers simultaneously and assign behaviours to it
+                }
+
+                if (Attacker.DesignatedHero && Attacker.skillActive)
+                {
+                    foreach (Characters enemy in enemies)
+                    {
+                        if (enemy.IsAlive && enemy != Target)
+                        {
+                            enemy.DamageCalculation(Attacker.AttackDamge);
+                        }
+                    }
+                    Attacker.hasUsedSkill = true;
+                    Attacker.skillActive = false;
+                    print("Kaboom");
                 }
             }
 
