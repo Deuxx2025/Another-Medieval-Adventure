@@ -9,6 +9,8 @@ public class Characters : MonoBehaviour
     public HealthDisplay healthDisplay;
     public bool HasAttacked;
     public bool DesignatedHero;
+    public bool skillActive;
+    public bool hasUsedSkill;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

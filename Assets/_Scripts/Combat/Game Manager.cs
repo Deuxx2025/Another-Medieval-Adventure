@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public int AllyIndex;               //holds the index for the ally Array
     public int EnemyIndex;              //holds the index for the enemy Array
     public int selectedItemIndex = -1;
-
     public enum BattleState
     {
         AllySelection,
@@ -207,7 +206,17 @@ public class GameManager : MonoBehaviour
         Highlight.transform.position = allies[AllyIndex].transform.position;
 
         ItemSelection();
-    }
+
+        if (Highlight.activeSelf)
+            if (Keyboard.current.zKey.wasPressedThisFrame)
+            {
+                if (allies[AllyIndex].DesignatedHero && !allies[AllyIndex].hasUsedSkill)
+                {
+                    allies[AllyIndex].skillActive = !allies[AllyIndex].skillActive;
+                }
+                print(allies[AllyIndex].skillActive);
+            }
+        }
 
     //Handles the dynamic highlight for the enemies so that the player know which enemy it's being selected
     public void EnemySelection()
